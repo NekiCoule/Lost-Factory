@@ -1,9 +1,11 @@
 extends "res://Character/Weapons/Scripts/WeaponBase.gd"
 
-
+var smoke_path = "res://Particles/Scenes/Smoke_Shot.tscn"
+var smoke_scene = load(smoke_path)
+var smoke_node
 
 func _ready():
-	pass 
+	pass
 
 
 func flip_weapon():

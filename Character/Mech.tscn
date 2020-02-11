@@ -16,5 +16,5 @@ position = Vector2( 25.707, 13.9201 )
 scale = Vector2( 0.739284, 0.739284 )
 
 [node name="Left_Weapon" parent="Chassis" instance=ExtResource( 3 )]
-position = Vector2( -33.1481, 13.9201 )
+position = Vector2( -26.7004, 14.3755 )
 scale = Vector2( 0.739, 0.739 )
