@@ -18,13 +18,13 @@ var chassis_node
 
 func _ready():
 	add_leg("res://Character/Legs/Scenes/StandartLegs.tscn")
-	animation_node = get_node("LegsBase/WalkAnimation")
+	animation_node = get_node("Legs/WalkAnimation")
 	animation_node.play("Walk")
 	animation_node.set_speed_scale(0)
 	
-	leg_node = get_node("LegsBase")
+	leg_node = get_node("Legs")
 	
-	chassis_node = get_node("ChassisBase")
+	chassis_node = get_node("Chassis")
 	
 	get_node("Chassis/Left_Weapon").flip_weapon()
 	
@@ -39,13 +39,13 @@ func _ready():
 func add_leg(node_path):
 	var new_leg = load(node_path).instance()
 	
-	if has_node("LegsBase"):
-		get_node("LegsBase").queue_free()
+	if has_node("Legs"):
+		get_node("Legs").queue_free()
 		
 	add_child(new_leg)
-	new_leg.set_name("LegsBase")
+	new_leg.set_name("Legs")
 	
-	leg_node = get_node("LegsBase")
+	leg_node = get_node("Legs")
 	
 	speed = leg_node.speed
 	friction = leg_node.friction
@@ -60,14 +60,14 @@ func add_leg(node_path):
 func add_chassis(node_path):
 	var new_chassis = load(node_path).instance()
 	
-	if has_node("ChassisBase"):
+	if has_node("Chassis"):
 		# unequip weapons !!
 		
 		
-		get_node("ChassisBase").queue_free()
+		get_node("Chassis").queue_free()
 		
 	add_child(new_chassis)
-	new_chassis.set_name("ChassisBase")
+	new_chassis.set_name("Chassis")
 
 
 # function : unequip
@@ -121,7 +121,7 @@ func get_input():
 
 # ----- TICK PROCESS -----
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	get_input()
 	move()
 	

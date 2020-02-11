@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Particles/Sprites/cartridge.png" type="Texture" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.72381, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.210938, 0.202698, 0.202698, 1, 0, 0, 0, 0 )
+
+[node name="Shell" type="CPUParticles2D" groups=[
+"Solo_Particle",
+]]
+z_index = -1
+z_as_relative = false
+emitting = false
+amount = 1
+explosiveness = 0.01
+local_coords = false
+texture = ExtResource( 1 )
+direction = Vector2( 1, 0.7 )
+spread = 25.0
+gravity = Vector2( 0, 160 )
+initial_velocity = 100.0
+angular_velocity = -500.0
+scale_amount = 0.5
+color_ramp = SubResource( 1 )

@@ -8,7 +8,7 @@ extends "res://Character/Chassis/Scripts/ChassisBase.gd"
 func _ready():
 	pass # Replace with function body.
 
-func _process(delta):
+func _process(_delta):
 	
 	# Make the chassis look at the mouse
 	look_at(get_viewport().get_mouse_position())

@@ -8,7 +8,7 @@ export (int) var bullet_speed = 400
 export (float) var fire_rate = 1
 export (String) var bullet_path = "res://Character/Weapons/Projectiles/Scenes/StandartBullet.tscn"
 
-var particle_rate
+var particle_rate : int
 
 var bullet_scene
 var bullet
@@ -30,6 +30,7 @@ func _ready():
 	anim_node = get_node("Shoot_Animation")
 	anim_node.set_speed_scale(particle_rate)
 	set_particle_rates()
+	print(particle_rate)
 
 
 # ---- FUNCTIONS ----
@@ -60,7 +61,7 @@ func shoot():
 	get_node("/root").add_child(bullet)
 	bullet.spawn(global_rotation_degrees - 90, get_node("Barrel_Point").global_position, bullet_speed, damage)
 	anim_node.play("shoot_anim")
-#	emit_particles(true)
+	emit_particles(true)
 	
 
 # name : emit_particles
@@ -70,9 +71,8 @@ func emit_particles(state):
 	for particle in particle_array:
 		if !particle.is_in_group("Solo_Particle"):
 			particle.restart()
-		particle.set_emitting(state)
 		if !state:
-			particle.restart()
+			particle.set_emitting(state)
 
 
 # ---- INPUT ----
@@ -83,11 +83,12 @@ func get_input():
 		timer_node.start(fire_rate)
 	if Input.is_action_just_released("primary_fire"):
 		emit_particles(false)
-		anim_node.stop(true)
+		anim_node.stop()
+		anim_node.seek(0.0, true)
 
 
 # ---- PROCESS ----
 
-func _process(delta):
+func _process(_delta):
 	get_input()
 	

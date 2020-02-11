@@ -11,7 +11,9 @@ func _ready():
 func flip_weapon():
 	flip_h = true
 	offset.x = offset.x * - 1
-	get_node("Barrel_Point").position.x = get_node("Barrel_Point").position.x * -1
+	for node in get_children():
+		if node is Sprite || node is Position2D:
+			node.position.x = node.position.x * -1
 	for particle in particle_array:
 		particle.scale.x = particle.scale.x * -1
 		particle.position.x = particle.position.x * -1

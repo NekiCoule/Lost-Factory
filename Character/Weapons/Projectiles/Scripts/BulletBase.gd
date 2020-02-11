@@ -17,7 +17,7 @@ func spawn(parent_rotation, parent_position, _speed, _damage):
 	damage = _damage
 	velocity = Vector2(1, 0).rotated(rotation) * speed
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
 	
 
