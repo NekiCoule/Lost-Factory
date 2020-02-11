@@ -1,35 +1,61 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Character/Weapons/Sprites/Standart_Gun.png" type="Texture" id=1]
+[ext_resource path="res://Character/Weapons/Sprites/Body/Standart_Gun_Body.png" type="Texture" id=1]
 [ext_resource path="res://Character/Weapons/Scripts/Standart_Gun.gd" type="Script" id=2]
 [ext_resource path="res://Particles/Scenes/Smoke_Shot.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Particles/Scenes/Gun_Blast.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Character/Weapons/Sprites/Moving parts/Standart_Gun_Stock.png" type="Texture" id=5]
+[ext_resource path="res://Character/Weapons/Sprites/Moving parts/Standart_Gun_Barrel.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "shoot_anim"
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("Barrel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 5 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 30, -40 ), Vector2( 30, -30 ), Vector2( 30, -40 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/path = NodePath("Stock:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 1.5, 0.0 ]
+"values": [ Vector2( 30, 10 ), Vector2( 30, 16 ), Vector2( 30, 16 ), Vector2( 30, 10 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles/Smoke_Shot:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles/Gun_Blast:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [node name="Standart_Gun" type="Sprite"]
@@ -41,23 +67,32 @@ script = ExtResource( 2 )
 bullet_speed = 800
 fire_rate = 0.15
 
-[node name="Barrel" type="Position2D" parent="."]
+[node name="Barrel" type="Sprite" parent="."]
+position = Vector2( 30, -40 )
+z_index = -1
+texture = ExtResource( 6 )
+offset = Vector2( 0, 6 )
+
+[node name="Stock" type="Sprite" parent="."]
+position = Vector2( 30, 10 )
+texture = ExtResource( 5 )
+offset = Vector2( 0.5, 1 )
+
+[node name="Barrel_Point" type="Position2D" parent="."]
 position = Vector2( 30, -50 )
 
 [node name="Rate" type="Timer" parent="."]
 one_shot = true
 
-[node name="Smoke_Pos" type="Position2D" parent="."]
-position = Vector2( 40, -10 )
+[node name="Shoot_Animation" type="AnimationPlayer" parent="."]
+anims/shoot_anim = SubResource( 1 )
 
 [node name="Particles" type="Node2D" parent="."]
 
 [node name="Gun_Blast" parent="Particles" instance=ExtResource( 4 )]
-position = Vector2( 30, -60 )
+position = Vector2( 30, -55 )
 lifetime = 0.05
 
 [node name="Smoke_Shot" parent="Particles" instance=ExtResource( 3 )]
-position = Vector2( 40, -10 )
-
-[node name="Shoot_Animation" type="AnimationPlayer" parent="."]
-anims/shoot_anim = SubResource( 1 )
+position = Vector2( 30, 10 )
+z_index = -1
