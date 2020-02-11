@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Character/Weapons/Sprites/Standart_Gun.png" type="Texture" id=1]
+[ext_resource path="res://Character/Weapons/Scripts/Standart_Gun.gd" type="Script" id=2]
+
+[node name="Standart_Gun" type="Sprite"]
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 1 )
+offset = Vector2( 5, -4 )
+script = ExtResource( 2 )
+
+[node name="Barrel" type="Position2D" parent="."]
+position = Vector2( 30.5165, -25.2978 )
