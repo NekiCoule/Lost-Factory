@@ -22,7 +22,7 @@ var anim_node
 # ---- READY ----
 
 func _ready():
-	particle_rate = 1 / fire_rate
+	particle_rate = round(1 / fire_rate)
 	bullet_scene = load(bullet_path)
 	timer_node = get_node("Rate")
 	timer_node.wait_time = fire_rate
