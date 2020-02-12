@@ -30,7 +30,6 @@ func _ready():
 	anim_node = get_node("Shoot_Animation")
 	anim_node.set_speed_scale(particle_rate)
 	set_particle_rates()
-	print(particle_rate)
 
 
 # ---- FUNCTIONS ----
