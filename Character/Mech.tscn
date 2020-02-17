@@ -11,10 +11,12 @@ script = ExtResource( 1 )
 position = Vector2( 0, 0 )
 scale = Vector2( 1.35266, 1.35266 )
 
-[node name="Right_Weapon" parent="Chassis" instance=ExtResource( 3 )]
-position = Vector2( 25.707, 13.9201 )
-scale = Vector2( 0.739284, 0.739284 )
+[node name="Weapons" type="Node2D" parent="Chassis"]
 
-[node name="Left_Weapon" parent="Chassis" instance=ExtResource( 3 )]
-position = Vector2( -26.7004, 14.3755 )
-scale = Vector2( 0.739, 0.739 )
+[node name="Left_Weapon" parent="Chassis/Weapons" instance=ExtResource( 3 )]
+position = Vector2( -55.4463, 11.0893 )
+
+[node name="Right_Weapon" parent="Chassis/Weapons" instance=ExtResource( 3 )]
+position = Vector2( 55.4463, 11.0893 )
+
+[node name="Specials" type="Node2D" parent="Chassis"]

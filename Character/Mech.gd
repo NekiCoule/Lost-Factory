@@ -26,7 +26,7 @@ func _ready():
 	
 	chassis_node = get_node("Chassis")
 	
-	get_node("Chassis/Left_Weapon").flip_weapon()
+	get_node("Chassis/Weapons/Left_Weapon").set_left()
 	
 
 # ----- FUNCTIONS -----
@@ -100,6 +100,19 @@ func move():
 	animation_node.set_speed_scale((abs(velocity.x) + abs(velocity.y)) * 0.017)
 	leg_node.rotation = velocity.angle() + deg2rad(90)
 
+
+# function : toggle_weapons
+# parameters : bool
+# description : Check all weapons and toggle the left or right depending of the bool
+
+func toggle_weapons(left):
+	var weapons = get_node("Chassis/Weapons").get_children()
+	for weapon in weapons:
+		if left:
+			weapon.toggle_left()
+		else:
+			weapon.toggle_right()
+
 # ----- INPUT -----
 
 func get_input():
@@ -117,6 +130,12 @@ func get_input():
 		direction.y -= 0.5
 		
 	direction = direction.normalized() * speed
+	
+	if Input.is_action_just_pressed("toggle_weapon_left"):
+		toggle_weapons(true)
+		
+	if Input.is_action_just_pressed("toggle_weapon_right"):
+		toggle_weapons(false)
 	
 
 # ----- TICK PROCESS -----
