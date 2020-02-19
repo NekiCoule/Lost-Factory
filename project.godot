@@ -19,6 +19,10 @@ config/name="Lost Factory"
 run/main_scene="res://Character/Mech.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+WeaponDict="*res://Inventory/Scripts/WeaponDict.gd"
+
 [input]
 
 ui_left={

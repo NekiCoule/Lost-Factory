@@ -3,7 +3,7 @@ extends Sprite
 
 # ---- VARIABLES ----
 
-
+export (String) var weapon_name = "BaseWeapon"
 export (float) var damage = 1.0
 export (int) var bullet_speed = 400
 export (float) var fire_rate = 1
@@ -22,7 +22,7 @@ var timer_node
 var anim_node
 
 var stats = {
-	"name": "Base_Gun",
+	"name": weapon_name,
 	"file_path": "Base_Script",
 	"damage": damage,
 	"bullet_speed": bullet_speed,
@@ -63,7 +63,7 @@ func _ready():
 # parameters : string, string
 # description : set the dictionary stat
 
-func set_stats(weapon_name, scene_path):
+func set_stats(scene_path):
 	stats.clear()
 	stats = {
 		"name": weapon_name,
@@ -72,6 +72,24 @@ func set_stats(weapon_name, scene_path):
 		"bullet_speed": bullet_speed,
 		"fire_rate": fire_rate,
 	}
+
+
+# name: update_stats
+# parameters: dictionary
+# description: update weapon stats with inventory dict stats
+
+func update_stats(dict):
+	damage = dict.get("damage")
+	bullet_speed = dict.get("bullet_speed")
+	fire_rate = dict.get("fire_rate")
+	
+	# warning-ignore:narrowing_conversion
+	particle_rate = round(1 / fire_rate)
+	timer_node.wait_time = fire_rate
+	
+	anim_node.set_speed_scale(particle_rate)
+	set_particle_rates()
+
 
 # name : set_left
 # description : the weapon is in a left spot, set the bool to true and flip the weapon
@@ -134,6 +152,12 @@ func toggle_right():
 		emit_particles(false)
 
 
+# name : unequip
+# description : add the weapon to the inventory and remove it
+
+func unequip():
+	get_node("/root/WeaponDict").add_weapon(stats)
+	queue_free()
 
 # ---- INPUT ----
 

@@ -8,8 +8,7 @@ var smoke_node
 
 
 func _ready():
-	set_stats(name, filename)
-	print(stats.get("scene_path"))
+	set_stats(filename)
 
 
 # Override flip_weapon function

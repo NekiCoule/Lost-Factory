@@ -11,22 +11,35 @@ var direction = Vector2()
 
 # nodes
 var animation_node
-var leg_node
+var legs_node
 var chassis_node
+var weapons
+
+# nodes name
+
+var chassis_name
+var legs_name
 
 # ---- ONREADY -----
 
 func _ready():
+	chassis_name = ""
+	legs_name = ""
+	
 	add_leg("res://Character/Legs/Scenes/StandartLegs.tscn")
-	animation_node = get_node("Legs/WalkAnimation")
+	animation_node = get_node(legs_name + "/WalkAnimation")
 	animation_node.play("Walk")
 	animation_node.set_speed_scale(0)
 	
-	leg_node = get_node("Legs")
+#	chassis_node = get_node("Chassis")
+#	chassis_name = chassis_node.name
 	
-	chassis_node = get_node("Chassis")
+#	weapons = get_node(chassis_node.name + "/Weapons")
 	
-	get_node("Chassis/Weapons/Left_Weapon").set_left()
+	add_chassis("res://Character/Chassis/Scenes/StandartChassis.tscn")
+	
+	
+#	get_node(chassis_name + "/Weapons/Left_Weapon").set_left()
 	
 
 # ----- FUNCTIONS -----
@@ -37,19 +50,19 @@ func _ready():
 # description : Check if there is a leg and remove it, then add the new node as LegsBase to the mech
 
 func add_leg(node_path):
-	var new_leg = load(node_path).instance()
+	var new_legs = load(node_path).instance()
 	
-	if has_node("Legs"):
-		get_node("Legs").queue_free()
+	if has_node(legs_name):
+		get_node(legs_name).queue_free()
 		
-	add_child(new_leg)
-	new_leg.set_name("Legs")
+	add_child(new_legs)
 	
-	leg_node = get_node("Legs")
+	legs_name = new_legs.name
+	legs_node = get_node(legs_name)
 	
-	speed = leg_node.speed
-	friction = leg_node.friction
-	acceleration = leg_node.acceleration
+	speed = legs_node.speed
+	friction = legs_node.friction
+	acceleration = legs_node.acceleration
 	
 	
 # function : add_chassis
@@ -60,23 +73,42 @@ func add_leg(node_path):
 func add_chassis(node_path):
 	var new_chassis = load(node_path).instance()
 	
-	if has_node("Chassis"):
-		# unequip weapons !!
+	if has_node(chassis_name):
+		for weapon in weapons.get_children():
+			weapon.unequip()
 		
-		
-		get_node("Chassis").queue_free()
+		get_node(chassis_name).queue_free()
 		
 	add_child(new_chassis)
-	new_chassis.set_name("Chassis")
+	chassis_name = new_chassis.name
+	chassis_node = get_node(chassis_name)
+	
+	var node_2d = load("res://Character/Weapons.tscn").instance()
+	chassis_node.add_child(node_2d)
+	print(node_2d.name)
+	weapons = get_node(chassis_name + "/Weapons")
 
 
-# function : unequip
-# parameters : (node)
+# function : equip
+# parameters : (int, bool, position)
 # returns : None
-# description : remove the weapon and put it in the inventory
+# description : attach the weapon from inventory
 
-func unequip_weapon(node):
-	get_node(node).queue_free()
+func equip_weapon(index, left, point_pos):
+	var dict = get_node("/root/WeaponDict")
+	if dict.check_index(index):
+		var weapon = dict.get_weapon(index)
+		var new_weapon = load(weapon.get("scene_path")).instance()
+		weapons.add_child(new_weapon)
+		
+		if left:
+			new_weapon.set_name("Left_Weapon")
+			new_weapon.set_left()
+		else:
+			new_weapon.set_name("Right_Weapon")
+		
+	else:
+		print("No weapon at index!")
 
 
 # function : move
@@ -98,7 +130,7 @@ func move():
 	
 	# Play anitmation depending of velocity
 	animation_node.set_speed_scale((abs(velocity.x) + abs(velocity.y)) * 0.017)
-	leg_node.rotation = velocity.angle() + deg2rad(90)
+	legs_node.rotation = velocity.angle() + deg2rad(90)
 
 
 # function : toggle_weapons
@@ -106,8 +138,7 @@ func move():
 # description : Check all weapons and toggle the left or right depending of the bool
 
 func toggle_weapons(left):
-	var weapons = get_node("Chassis/Weapons").get_children()
-	for weapon in weapons:
+	for weapon in weapons.get_children():
 		if left:
 			weapon.toggle_left()
 		else:

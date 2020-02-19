@@ -78,6 +78,7 @@ z_as_relative = false
 texture = ExtResource( 1 )
 offset = Vector2( 1, 0.5 )
 script = ExtResource( 2 )
+weapon_name = "Standart Gun"
 bullet_speed = 1200
 fire_rate = 0.15
 
