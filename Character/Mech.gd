@@ -31,15 +31,10 @@ func _ready():
 	animation_node.play("Walk")
 	animation_node.set_speed_scale(0)
 	
-#	chassis_node = get_node("Chassis")
-#	chassis_name = chassis_node.name
-	
-#	weapons = get_node(chassis_node.name + "/Weapons")
-	
 	add_chassis("res://Character/Chassis/Scenes/StandartChassis.tscn")
-	
-	
-#	get_node(chassis_name + "/Weapons/Left_Weapon").set_left()
+	print(chassis_node.get_node("Sprite/ArmL").get_global_position())
+	equip_weapon(0, true, chassis_node.get_node("Sprite/ArmL").get_position())
+	equip_weapon(0, false, chassis_node.get_node("Sprite/ArmR").get_position())
 	
 
 # ----- FUNCTIONS -----
@@ -102,10 +97,11 @@ func equip_weapon(index, left, point_pos):
 		weapons.add_child(new_weapon)
 		
 		if left:
-			new_weapon.set_name("Left_Weapon")
 			new_weapon.set_left()
-		else:
-			new_weapon.set_name("Right_Weapon")
+		
+		new_weapon.set_position(point_pos)
+		
+		
 		
 	else:
 		print("No weapon at index!")

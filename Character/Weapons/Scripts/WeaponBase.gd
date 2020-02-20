@@ -21,6 +21,9 @@ var particle_array
 var timer_node
 var anim_node
 
+
+
+
 var stats = {
 	"name": weapon_name,
 	"file_path": "Base_Script",
@@ -38,6 +41,8 @@ func _ready():
 	# Set all variables
 	
 	armed = false
+	
+
 	
 	left = false
 	# warning-ignore:narrowing_conversion
@@ -162,22 +167,23 @@ func unequip():
 # ---- INPUT ----
 
 func get_input():
-	if armed:
-		if Input.is_action_pressed("primary_fire") && timer_node.time_left == 0:
-			shoot()
-			timer_node.start(fire_rate)
-		if Input.is_action_just_released("primary_fire"):
-			emit_particles(false)
-			anim_node.stop()
-			anim_node.seek(0.0, true)
+	if Input.is_action_pressed("primary_fire") && timer_node.time_left == 0:
+		shoot()
+		timer_node.start(fire_rate)
+	if Input.is_action_just_released("primary_fire"):
+		emit_particles(false)
+		anim_node.stop()
+		anim_node.seek(0.0, true)
 
 
 # ---- PROCESS ----
 
 func _process(_delta):
-	get_input()
+	if armed:
+		
+		get_input()
 	
-	# Make the weapon look at the mouse
-	look_at(get_viewport().get_mouse_position())
-	rotation = rotation + deg2rad(90)
+		# Make the weapon look at the mouse
+		look_at(get_viewport().get_mouse_position())
+		rotation = rotation + deg2rad(90)
 	

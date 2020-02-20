@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Character/Weapons/Sprites/Body/Standart_Gun_Body.png" type="Texture" id=1]
 [ext_resource path="res://Character/Weapons/Scripts/Standart_Gun.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Character/Weapons/Sprites/Moving parts/Standart_Gun_Stock.png" type="Texture" id=5]
 [ext_resource path="res://Character/Weapons/Sprites/Moving parts/Standart_Gun_Barrel.png" type="Texture" id=6]
 [ext_resource path="res://Particles/Scenes/Shell.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Character/Weapons/Sprites/Enabled.png" type="Texture" id=8]
+[ext_resource path="res://Character/Weapons/Sprites/Disabled.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "shoot_anim"
@@ -115,3 +117,13 @@ z_index = -1
 [node name="Shell" parent="Particles" instance=ExtResource( 7 )]
 position = Vector2( 8, 16 )
 one_shot = true
+
+[node name="Disabled_Sprite" type="Sprite" parent="."]
+position = Vector2( -5.45455, -14.5455 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 9 )
+
+[node name="Enabled_Sprite" type="Sprite" parent="."]
+position = Vector2( -5.45455, -9.09091 )
+scale = Vector2( 0.360795, 0.360795 )
+texture = ExtResource( 8 )

@@ -1,10 +1,17 @@
 extends Node
 
 var weapon_array
-
+var starting_guns
 
 func _ready():
-	weapon_array = []
+	starting_guns = {
+		"name": "Standart Gun",
+		"scene_path": "res://Character/Weapons/Scenes/Standart_Gun.tscn",
+		"damage": 1,
+		"bullet_speed": 1200,
+		"fire_rate": 0.15
+	}
+	weapon_array = [starting_guns, starting_guns]
 
 
 # name: add_weapon
@@ -30,7 +37,7 @@ func add_weapon(weapon_stats):
 # description: check if the index exists
 
 func check_index(index):
-	for i in weapon_array:
+	for i in weapon_array.size():
 		if i == index:
 			return true
 		else:
