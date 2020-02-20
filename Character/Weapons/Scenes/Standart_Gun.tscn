@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Character/Weapons/Sprites/Body/Standart_Gun_Body.png" type="Texture" id=1]
 [ext_resource path="res://Character/Weapons/Scripts/Standart_Gun.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Particles/Scenes/Shell.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Character/Weapons/Sprites/Enabled.png" type="Texture" id=8]
 [ext_resource path="res://Character/Weapons/Sprites/Disabled.png" type="Texture" id=9]
+[ext_resource path="res://Character/Weapons/Sounds/StandartGunShot.wav" type="AudioStream" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "shoot_anim"
@@ -127,3 +128,6 @@ texture = ExtResource( 9 )
 position = Vector2( -5.45455, -9.09091 )
 scale = Vector2( 0.360795, 0.360795 )
 texture = ExtResource( 8 )
+
+[node name="Shoot_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )

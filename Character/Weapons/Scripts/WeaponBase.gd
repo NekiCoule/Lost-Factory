@@ -21,6 +21,8 @@ var particle_array
 var timer_node
 var anim_node
 
+var shoot_sound_node
+
 
 
 
@@ -40,11 +42,11 @@ func _ready():
 	
 	# Set all variables
 	
-	armed = false
-	
-
-	
+	armed = false	
 	left = false
+	
+	shoot_sound_node = get_node("Shoot_Sound")
+	
 	# warning-ignore:narrowing_conversion
 	particle_rate = round(1 / fire_rate)
 	bullet_scene = load(bullet_path)
@@ -126,6 +128,9 @@ func shoot():
 	bullet = bullet_scene.instance()
 	get_node("/root").add_child(bullet)
 	bullet.spawn(global_rotation_degrees - 90, get_node("Barrel_Point").global_position, bullet_speed, damage)
+	
+	shoot_sound_node.play()
+	
 	anim_node.play("shoot_anim")
 	emit_particles(true)
 	
