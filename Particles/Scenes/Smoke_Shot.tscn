@@ -22,6 +22,6 @@ angular_velocity = 70.82
 linear_accel = -60.0
 angle = 301.4
 angle_random = 0.81
-scale_amount = 0.4
+scale_amount = 0.3
 scale_amount_random = 0.2
 color_ramp = SubResource( 1 )
